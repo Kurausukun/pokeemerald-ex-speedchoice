@@ -16,7 +16,6 @@
 #include "constants/songs.h"
 #include "menu.h"
 #include "done_button.h"
-#include "AgbAccuracy.h"
 #include "string_util.h"
 
 // Stolen shamelessly from PikalaxALT.
@@ -227,7 +226,7 @@ void CB2_BootErrorScreen(void)
 
 static void Task_BootErrorScreen_Step(u8 taskId);
 
-extern u64 gAgbAccuracyResult;
+//extern u64 gAgbAccuracyResult;
 
 char c2h(char c) {
   switch (c) {
@@ -275,41 +274,41 @@ u8 * ascii2gf(u8 *dest, const char *src) {
   return dest;
 }
 
-void BufferWhichErrorsText(void)
-{
-    u8 i;
-    int c;
-    u8 *ptr;
-    u8 buffer[32];
-    u8 j;
-    gStringVar4[0] = EOS;
-    ptr = gStringVar4;
-    
-    for(i = 0, c = 0; i < 64; i++)
-    {
-        // if this is set, it means the cooresponding gTestSpecs element returned
-        // an error. Buffer the string after converting it from ASCII.
-        if (gAgbAccuracyResult & (1ULL << i))
-        {
-            ascii2gf(buffer, gTestSpecs[i].name);
-            if (c % 2)
-            {
-                s32 x = 204 - GetStringWidth(1, buffer, 1);
-                *ptr++ = EXT_CTRL_CODE_BEGIN;
-                *ptr++ = EXT_CTRL_CODE_CLEAR_TO;
-                *ptr++ = x;
-                ptr = StringCopy(ptr, buffer);
-                *ptr++ = CHAR_NEWLINE;
-                *ptr = EOS;
-            }
-            else
-            {
-                ptr = StringCopy(ptr, buffer);
-            }
-            c++;
-        }
-    }
-}
+//void BufferWhichErrorsText(void)
+//{
+//    u8 i;
+//    int c;
+//    u8 *ptr;
+//    u8 buffer[32];
+//    u8 j;
+//    gStringVar4[0] = EOS;
+//    ptr = gStringVar4;
+//    
+//    for(i = 0, c = 0; i < 64; i++)
+//    {
+//        // if this is set, it means the cooresponding gTestSpecs element returned
+//        // an error. Buffer the string after converting it from ASCII.
+//        if (gAgbAccuracyResult & (1ULL << i))
+//        {
+//            ascii2gf(buffer, gTestSpecs[i].name);
+//            if (c % 2)
+//            {
+//                s32 x = 204 - GetStringWidth(1, buffer, 1);
+//                *ptr++ = EXT_CTRL_CODE_BEGIN;
+//                *ptr++ = EXT_CTRL_CODE_CLEAR_TO;
+//                *ptr++ = x;
+//                ptr = StringCopy(ptr, buffer);
+//                *ptr++ = CHAR_NEWLINE;
+//                *ptr = EOS;
+//            }
+//            else
+//            {
+//                ptr = StringCopy(ptr, buffer);
+//            }
+//            c++;
+//        }
+//    }
+//}
 
 static void DrawFrame(void)
 {
@@ -344,7 +343,7 @@ static void Task_BootErrorScreen(u8 taskId)
         s32 i;
         FillWindowPixelBuffer(0, PIXEL_FILL(1));
         DrawFrame();
-        BufferWhichErrorsText();
+        //BufferWhichErrorsText();
         for (i = 0; i < 9; i++)
         {
             if (sTexts_FatalError[gWhichErrorMessage].texts[i].str != NULL)

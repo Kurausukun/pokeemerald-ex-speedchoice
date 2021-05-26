@@ -27,7 +27,7 @@
 #include "constants/rgb.h"
 #include "done_button.h"
 #include "boot_error_screen.h"
-#include "AgbAccuracy.h"
+//#include "AgbAccuracy.h"
 
 static void VBlankIntr(void);
 static void HBlankIntr(void);
@@ -77,7 +77,7 @@ s8 gPcmDmaCounter;
 static EWRAM_DATA u16 gTrainerId = 0;
 
 // 0 for accurate. Non 0 will bring up the error screen.
-EWRAM_DATA u64 gAgbAccuracyResult = 0;
+//EWRAM_DATA u64 gAgbAccuracyResult = 0;
 
 //EWRAM_DATA void (**gFlashTimerIntrFunc)(void) = NULL;
 
@@ -93,9 +93,9 @@ void DoFrameTimers(void);
 
 #define B_START_SELECT (B_BUTTON | START_BUTTON | SELECT_BUTTON)
 
-extern void NESPipelineTest_Internal(void);
-extern u32 NESPipelineTest_Internal_End; // not a variable
-extern s32 TimerPrescalerTest(void);
+//extern void NESPipelineTest_Internal(void);
+//extern u32 NESPipelineTest_Internal_End; // not a variable
+//extern s32 TimerPrescalerTest(void);
 
 void AgbMain()
 {
@@ -110,9 +110,9 @@ void AgbMain()
     REG_WAITCNT = WAITCNT_PREFETCH_ENABLE | WAITCNT_WS0_S_1 | WAITCNT_WS0_N_3;
     InitKeys();
     InitIntrHandlers();
-    gAgbAccuracyResult = RunAgbAccuracyTests(
-     TEST_MASK(TEST_TIMER_PRESCALER) |
-     TEST_MASK(TEST_INSN_PREFETCH)); // only do first 2 tests
+    //gAgbAccuracyResult = RunAgbAccuracyTests(
+    // TEST_MASK(TEST_TIMER_PRESCALER) |
+    // TEST_MASK(TEST_INSN_PREFETCH)); // only do first 2 tests
     m4aSoundInit();
     EnableVCountIntrAtLine150();
     InitRFU();
@@ -132,8 +132,8 @@ void AgbMain()
     
     if (gFlashMemoryPresent == FALSE)
         gWhichErrorMessage = FATAL_NO_FLASH;
-    else if (gAgbAccuracyResult)
-        gWhichErrorMessage = FATAL_ACCU_FAIL;
+    //else if (gAgbAccuracyResult)
+    //    gWhichErrorMessage = FATAL_ACCU_FAIL;
     else
         gWhichErrorMessage = FATAL_OKAY;
 
